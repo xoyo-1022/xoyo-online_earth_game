@@ -4,7 +4,7 @@
   "description": "个人博客和Vlog分享网站",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build && gh-pages -d out"
