@@ -5,47 +5,68 @@ export default function About() {
         <h1>👋 关于我</h1>
       </div>
 
-      <div className="card">
-        <h2>个人介绍</h2>
-        <p>
-          欢迎来到 xoyo.online！我是一名充满热情的创作者，喜欢通过博客和视频记录生活中的点点滴滴。
-        </p>
-        <p>
-          这个网站是我的地球主线及支线副本任务记录 📝，记录那些值得收藏的瞬间和思考。
-        </p>
-      </div>
+      <div style={{ maxWidth: '680px', padding: '0 0 100px' }}>
+        <div style={{
+          width: '100%',
+          aspectRatio: '16/6',
+          background: 'linear-gradient(135deg, #f0f0f5 0%, #e0e0e8 100%)',
+          borderRadius: 'var(--radius)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '4rem',
+          marginBottom: '48px',
+        }}>
+          🌍
+        </div>
 
-      <div className="card">
-        <h2>🎯 我的兴趣</h2>
-        <ul style={{ marginLeft: '2rem' }}>
-          <li style={{ marginBottom: '0.5rem' }}>💻 技术和编程</li>
-          <li style={{ marginBottom: '0.5rem' }}>🎬 视频制作</li>
-          <li style={{ marginBottom: '0.5rem' }}>📚 阅读和学习</li>
-          <li style={{ marginBottom: '0.5rem' }}>🌍 旅游和探险</li>
-          <li style={{ marginBottom: '0.5rem' }}>🎨 创意设计</li>
-        </ul>
-      </div>
+        <div style={{ marginBottom: '60px' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '16px' }}>你好</h2>
+          <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+            欢迎来到 xoyo.online！这里是 xoyo 的地球主线及支线副本任务记录 📝。
+            记录那些值得收藏的瞬间、旅途中的风景、以及生活中的思考。
+          </p>
+        </div>
 
-      <div className="card">
-        <h2>🔗 联系方式</h2>
-        <ul style={{ marginLeft: '2rem' }}>
-          <li style={{ marginBottom: '0.5rem' }}>
-            📧 邮箱：<a href="mailto:xueyu131420@126.com" style={{ color: '#667eea' }}>xueyu131420@126.com</a>
-          </li>
-          <li style={{ marginBottom: '0.5rem' }}>
-            🐙 GitHub：<a href="https://github.com/xoyo-1022" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea' }}>@xoyo-1022</a>
-          </li>
-        </ul>
-      </div>
+        <div style={{ marginBottom: '48px' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '16px' }}>🎯 我在做什么</h3>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {['💻 技术和编程', '🎬 视频制作', '📚 阅读和学习', '🌍 旅游和探险', '🎨 创意设计'].map((item) => (
+              <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem' }}>
+                <span style={{ color: 'var(--text-secondary)' }}>{item.split(' ')[0]}</span>
+                <span>{item.split(' ').slice(1).join(' ')}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div className="card">
-        <h2>🛠️ 网站技术</h2>
-        <ul style={{ marginLeft: '2rem' }}>
-          <li style={{ marginBottom: '0.5rem' }}><strong>框架:</strong> Next.js 14 + TypeScript</li>
-          <li style={{ marginBottom: '0.5rem' }}><strong>样式:</strong> 自定义 CSS（现代化暗色设计）</li>
-          <li style={{ marginBottom: '0.5rem' }}><strong>部署:</strong> GitHub Pages</li>
-          <li style={{ marginBottom: '0.5rem' }}><strong>源码:</strong> <a href="https://github.com/xoyo-1022/xoyo-online_earth_game" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea' }}>GitHub 仓库</a></li>
-        </ul>
+        <div style={{ marginBottom: '48px' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '16px' }}>🔗 联系我</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {[
+              { icon: '📧', label: '邮箱', value: 'xueyu131420@126.com', href: 'mailto:xueyu131420@126.com' },
+              { icon: '🐙', label: 'GitHub', value: '@xoyo-1022', href: 'https://github.com/xoyo-1022' },
+            ].map((item) => (
+              <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '16px 20px',
+                background: 'var(--bg-secondary)',
+                borderRadius: 'var(--radius-sm)',
+                textDecoration: 'none',
+                color: 'var(--text)',
+                transition: 'background 0.2s',
+              }}>
+                <span style={{ fontSize: '1.3rem' }}>{item.icon}</span>
+                <div>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>{item.label}</p>
+                  <p style={{ fontSize: '0.95rem', color: 'var(--accent)' }}>{item.value}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
