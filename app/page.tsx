@@ -4,8 +4,8 @@ export default function Home() {
       {/* Hero */}
       <section className="hero">
         <p className="hero-eyebrow">xoyo.online</p>
-        <h1>xoyo的地球副本</h1>
-        <p>记录生活主线任务 & 支线副本通关日志<br />用热爱书写属于自己的故事</p>
+        <h1 className="hero-title">xoyo的地球副本</h1>
+        <p className="hero-subtitle">记录生活主线任务 & 支线副本通关日志<br />用热爱书写属于自己的故事</p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
           <a href="/moments" className="btn btn-primary">📸 图文分享</a>
           <a href="/blog" className="btn btn-outline">📝 阅读博客</a>
