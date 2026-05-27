@@ -1,6 +1,6 @@
 /* ============================================
    xoyo.online - Artistic Gallery Theme
-   Light Mode · Masterpiece-inspired · Soft Gradients
+   Light Mode · Masterpiece-inspired · Dynamic Background
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
@@ -23,9 +23,7 @@
 
   --gradient-rose: linear-gradient(135deg, #F2E6DC 0%, #E8D4C4 50%, #DCC8B8 100%);
   --gradient-sage: linear-gradient(135deg, #EDF2E8 0%, #DCE4D3 100%);
-  --gradient-blue: linear-gradient(135deg, #E8EEF4 0%, #D4E0EC 100%);
   --gradient-lavender: linear-gradient(135deg, #F2EFF6 0%, #E4DCF0 100%);
-  --gradient-warm: linear-gradient(180deg, #FDF8F3 0%, #F5EDE4 100%);
 
   --text-primary: #3D3531;
   --text-secondary: #7A7267;
@@ -37,14 +35,7 @@
   --shadow-soft: 0 4px 24px rgba(60, 50, 40, 0.06);
   --shadow-card: 0 8px 40px rgba(60, 50, 40, 0.09);
   --shadow-hover: 0 16px 60px rgba(60, 50, 40, 0.13);
-
-  /* Custom cursor */
-  --cursor-custom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23C9956A' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23C9956A'/%3E%3C/svg%3E") 16 16, crosshair;
 }
-
-/* ---------- Custom Cursor ---------- */
-* { cursor: var(--cursor-custom); }
-a, button, [role="button"], input, textarea, select { cursor: var(--cursor-custom); }
 
 /* ---------- Reset & Base ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -58,7 +49,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- PPT Smooth Zoom Page Transition ---------- */
+/* ---------- Page Transition - Zoom Circle ---------- */
 .page-transition {
   position: fixed;
   top: 0; left: 0;
@@ -72,76 +63,99 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   width: 0; height: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
   background: linear-gradient(
     135deg,
     #F2E0D0 0%,
-    #D4B8A0 25%,
-    #C9956A 50%,
-    #C4878E 75%,
+    #E8D0B8 25%,
+    #D4B090 50%,
+    #C9956A 60%,
+    #C4878E 80%,
     #B8A8C9 100%
   );
-  transition: none;
-}
-
-.page-transition.active .wipe-circle {
-  width: 400vh;
-  height: 400vh;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.page-transition.exit .wipe-circle {
-  top: 50%; left: 50%;
-  width: 400vh; height: 400vh;
-  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
-              height 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
-              top 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
-              left 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
-              opacity 0.3s ease 0.15s;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
   opacity: 0;
 }
 
-/* ---------- Aurora Light Background ---------- */
-.aurora-bg {
+.page-transition.active .wipe-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.2s ease;
+}
+
+.page-transition.exit .wipe-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              opacity 0.3s ease 0.1s;
+}
+
+/* ---------- Dynamic Background ---------- */
+.dynamic-bg {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: -1; overflow: hidden;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
   background: var(--bg-warm);
   pointer-events: none;
 }
 
-.aurora-bg::before {
+/* Multiple floating gradient orbs */
+.dynamic-bg::before {
+  content: '';
+  position: absolute;
+  width: 200%; height: 200%;
+  top: -50%; left: -50%;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(201, 149, 106, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 30%, rgba(196, 135, 142, 0.15) 0%, transparent 45%),
+    radial-gradient(ellipse at 55% 80%, rgba(184, 168, 201, 0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 8% 75%, rgba(156, 175, 136, 0.12) 0%, transparent 35%),
+    radial-gradient(ellipse at 70% 50%, rgba(143, 175, 201, 0.10) 0%, transparent 40%);
+  animation: bgFloat1 30s ease-in-out infinite;
+}
+
+.dynamic-bg::after {
   content: '';
   position: absolute;
   width: 180%; height: 180%;
   top: -40%; left: -40%;
   background:
-    radial-gradient(ellipse at 20% 15%, rgba(201, 149, 106, 0.14) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 25%, rgba(196, 135, 142, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse at 60% 75%, rgba(184, 168, 201, 0.12) 0%, transparent 40%),
-    radial-gradient(ellipse at 10% 80%, rgba(156, 175, 136, 0.10) 0%, transparent 35%);
-  animation: auroraFloat 25s ease-in-out infinite;
+    radial-gradient(ellipse at 80% 15%, rgba(244, 114, 182, 0.12) 0%, transparent 40%),
+    radial-gradient(ellipse at 25% 65%, rgba(34, 211, 238, 0.08) 0%, transparent 35%),
+    radial-gradient(ellipse at 60% 40%, rgba(251, 146, 60, 0.08) 0%, transparent 40%);
+  animation: bgFloat2 25s ease-in-out infinite reverse;
 }
 
-.aurora-bg::after {
-  content: '';
+/* Third layer - warm golden light */
+.bg-layer-3 {
   position: absolute;
-  width: 160%; height: 160%;
-  top: -30%; left: -30%;
-  background:
-    radial-gradient(ellipse at 75% 10%, rgba(143, 175, 201, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse at 30% 60%, rgba(201, 149, 106, 0.10) 0%, transparent 40%);
-  animation: auroraFloat 30s ease-in-out infinite reverse;
+  width: 150%; height: 150%;
+  top: -25%; left: -25%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(201, 149, 106, 0.08) 0%, transparent 50%);
+  animation: bgFloat3 35s ease-in-out infinite;
 }
 
-@keyframes auroraFloat {
+@keyframes bgFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(3%, 2%) scale(1.02); }
+  50% { transform: translate(-2%, 4%) scale(0.98); }
+  75% { transform: translate(-4%, -2%) scale(1.01); }
+}
+
+@keyframes bgFloat2 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(3%, 2%) rotate(1deg); }
-  66% { transform: translate(-2%, 3%) rotate(-0.5deg); }
+  33% { transform: translate(-3%, 3%) rotate(-1deg); }
+  66% { transform: translate(2%, -2%) rotate(0.5deg); }
+}
+
+@keyframes bgFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-1%, 2%) scale(1.03); }
 }
 
 /* ---------- Navigation ---------- */
@@ -215,7 +229,7 @@ nav {
   position: relative;
 }
 
-/* ---------- Artwork Container with Mona Lisa ---------- */
+/* ---------- Artwork Container - CSS Art ---------- */
 .artwork-wrapper {
   position: relative;
   margin-bottom: 3rem;
@@ -224,80 +238,323 @@ nav {
   align-items: center;
 }
 
+/* Outer gilded frame */
 .artwork-frame-outer {
   position: relative;
   padding: 1.5rem;
-  background: linear-gradient(145deg, #E8D4C4, #D4BCA8);
+  background: linear-gradient(145deg, #E2CEB8, #CEBA9A);
   border-radius: 6px;
   box-shadow:
-    0 0 0 1px rgba(201, 149, 106, 0.4),
-    0 8px 40px rgba(60, 50, 40, 0.12),
-    inset 0 1px 0 rgba(255,255,255,0.6);
+    0 0 0 2px rgba(201, 149, 106, 0.5),
+    0 0 30px rgba(201, 149, 106, 0.2),
+    0 12px 50px rgba(60, 50, 40, 0.15),
+    inset 0 2px 4px rgba(255,255,255,0.5),
+    inset 0 -2px 4px rgba(0,0,0,0.05);
 }
 
 .artwork-frame-inner {
   position: relative;
-  padding: 1rem;
-  border: 1.5px solid rgba(201, 149, 106, 0.5);
+  padding: 0.75rem;
+  border: 1.5px solid rgba(201, 149, 106, 0.6);
+  border-radius: 2px;
+  background: linear-gradient(145deg, #D0BA98, #C4AE88);
 }
 
 .artwork-frame-inner::before {
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px solid rgba(201, 149, 106, 0.25);
+  border: 1px solid rgba(201, 149, 106, 0.3);
+  pointer-events: none;
 }
 
-.artwork-image-container {
+/* Canvas area */
+.artwork-canvas {
   position: relative;
   width: 260px;
   height: 340px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
-.artwork-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
+/* ========== CSS ART: Mona Lisa + MacBook ========== */
+
+/* Sky / sfumato background */
+.art-sky {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(
+    180deg,
+    #D4C4A8 0%,
+    #C8B498 30%,
+    #BCA880 60%,
+    #B8A078 100%
+  );
 }
 
-/* Subtle overlay for vintage feel */
-.artwork-image-container::after {
+/* Distant landscape hills */
+.art-hills {
+  position: absolute;
+  bottom: 45%; left: 0; right: 0;
+  height: 45%;
+  background:
+    radial-gradient(ellipse at 30% 100%, #9CAF88 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 100%, #8BA080 0%, transparent 65%),
+    linear-gradient(to top, #8BA878 0%, #A8C090 100%);
+}
+
+/* Rocky ledge / parapet */
+.art-parapet {
+  position: absolute;
+  bottom: 42%; left: 0; right: 0;
+  height: 8%;
+  background: linear-gradient(180deg, #B8A070, #A89060);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Stone arch opening */
+.art-arch {
+  position: absolute;
+  bottom: 45%; left: 0; right: 0;
+  height: 50%;
+  background:
+    radial-gradient(ellipse at 50% 100%, #A8C090 0%, transparent 60%);
+}
+
+/* Figure container */
+.art-figure {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 160px;
+  z-index: 2;
+}
+
+/* Her hair - dark flowing hair */
+.art-hair {
+  position: absolute;
+  top: -2px; left: -6px; right: -6px;
+  height: 38px;
+  background: linear-gradient(180deg, #3A2818 0%, #4A3820 60%, #5A4830 100%);
+  border-radius: 50% 50% 20% 20%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Her face - soft warm tone */
+.art-face {
+  position: absolute;
+  top: 4px; left: 50%;
+  transform: translateX(-50%);
+  width: 50px; height: 60px;
+  background: linear-gradient(145deg, #E8D0B8, #DCC8B0);
+  border-radius: 48% 48% 44% 44% / 52% 52% 48% 48%;
+  box-shadow:
+    inset -3px -3px 8px rgba(0,0,0,0.05),
+    0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Subtle cheek warmth */
+.art-face::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(240,225,210,0.15) 0%, transparent 30%),
-    linear-gradient(to top, rgba(200,180,150,0.1) 0%, transparent 20%);
-  pointer-events: none;
+  top: 35px; left: 8px;
+  width: 34px; height: 20px;
+  background: radial-gradient(ellipse, rgba(220, 160, 120, 0.2), transparent 70%);
+  border-radius: 50%;
 }
 
-/* Gold illuminated frame corners */
-.artwork-frame-corner {
+/* Her eyes - enigmatic half-lidded */
+.art-eyes {
   position: absolute;
-  width: 20px; height: 20px;
-  border-color: var(--accent-gold);
-  border-style: solid;
-  opacity: 0.6;
+  top: 24px; left: 50%;
+  transform: translateX(-50%);
+  width: 32px; height: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 
+.art-eye {
+  width: 10px; height: 6px;
+  background: radial-gradient(ellipse, #5A4030, #4A3020);
+  border-radius: 50% 50% 40% 40%;
+  box-shadow: inset 0.5px 0.5px 2px rgba(0,0,0,0.3);
+}
+
+/* Slight asymmetry - her famous look */
+.art-eye:first-child { transform: rotate(-2deg); }
+.art-eye:last-child { transform: rotate(2deg); }
+
+/* Her smile - that famous half-smile */
+.art-smile {
+  position: absolute;
+  top: 40px; left: 50%;
+  transform: translateX(-50%);
+  width: 24px; height: 8px;
+  border: none;
+  border-bottom: 1.5px solid rgba(100, 60, 30, 0.35);
+  border-radius: 0 0 60% 60%;
+}
+
+/* Her body - Renaissance dress in warm ochre/gold tones */
+.art-body {
+  position: absolute;
+  top: 58px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 100px;
+  background: linear-gradient(180deg, #C49A60 0%, #B08040 40%, #9A7030 100%);
+  border-radius: 35% 35% 25% 25% / 50% 50% 30% 30%;
+  box-shadow:
+    inset -4px 0 12px rgba(0,0,0,0.1),
+    inset 4px 0 12px rgba(255,255,255,0.1);
+}
+
+/* Dress detail - collar/neckline */
+.art-body::before {
+  content: '';
+  position: absolute;
+  top: 2px; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 15px;
+  background: radial-gradient(ellipse, #D4AA70, #C49A60);
+  border-radius: 50% 50% 40% 40%;
+}
+
+/* Her right arm - reaching toward MacBook */
+.art-arm-right {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+  width: 55px; height: 14px;
+  background: linear-gradient(90deg, #B08040, #A07030);
+  border-radius: 8px;
+  transform: rotate(-20deg);
+  z-index: 3;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Her left arm - classic position across body */
+.art-arm-left {
+  position: absolute;
+  top: 62px; left: 3px;
+  width: 14px; height: 60px;
+  background: linear-gradient(180deg, #C49A60, #A07030);
+  border-radius: 8px;
+  transform: rotate(18deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Hand on left arm */
+.art-hand {
+  position: absolute;
+  top: 55px; left: -5px;
+  width: 18px; height: 14px;
+  background: linear-gradient(145deg, #DCC8B0, #D0BCA0);
+  border-radius: 40% 40% 50% 50%;
+}
+
+/* MacBook Pro - sleek dark silhouette */
+.art-macbook {
+  position: absolute;
+  bottom: 10%;
+  right: 8%;
+  width: 65px;
+  height: 42px;
+  background: linear-gradient(180deg, #3A3A4A, #2A2A3A, #1A1A2A);
+  border-radius: 4px 4px 0 0;
+  z-index: 4;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Screen with glow */
+.art-macbook::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  background: linear-gradient(
+    135deg,
+    #1A2A4A 0%,
+    #2A4A7A 40%,
+    #3A6AAA 60%,
+    #4A8ADA 100%
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(74, 138, 218, 0.4);
+  animation: screenGlow 3s ease-in-out infinite;
+}
+
+/* Screen content hint */
+.art-macbook::after {
+  content: '';
+  position: absolute;
+  top: 5px; left: 5px; right: 5px; bottom: 5px;
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,0.05) 0%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.03) 100%
+    );
+  border-radius: 1px;
+}
+
+/* MacBook base / keyboard */
+.art-macbook-base {
+  position: absolute;
+  bottom: 7%;
+  right: 6%;
+  width: 70px;
+  height: 5px;
+  background: linear-gradient(180deg, #4A4A5A, #3A3A4A);
+  border-radius: 0 0 3px 3px;
+  z-index: 4;
+}
+
+/* Golden light reflection from screen */
+.art-glow {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+  width: 120px; height: 80px;
+  background: radial-gradient(
+    ellipse at 60% 50%,
+    rgba(74, 138, 218, 0.25) 0%,
+    rgba(201, 149, 106, 0.15) 40%,
+    transparent 70%
+  );
+  z-index: 1;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes screenGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 138, 218, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(74, 138, 218, 0.6), 0 0 60px rgba(74, 138, 218, 0.2); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1.2; }
+}
+
+/* Frame label */
 .artwork-label {
   position: absolute;
-  bottom: -30px; left: 50%;
+  bottom: -28px; left: 50%;
   transform: translateX(-50%);
-  background: rgba(255,255,255,0.92);
-  padding: 0.4rem 1.2rem;
-  border-radius: 3px;
-  font-size: 0.75rem;
+  background: rgba(255,255,255,0.95);
+  padding: 0.35rem 1rem;
+  border-radius: 2px;
+  font-size: 0.72rem;
   color: var(--secondary);
   font-style: italic;
   white-space: nowrap;
   border: 1px solid var(--border-gold);
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  z-index: 10;
 }
 
 .artwork-float-anim {
@@ -352,7 +609,6 @@ nav {
   font-size: 0.95rem;
   text-decoration: none;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
   border: none;
   font-family: 'Nunito', sans-serif;
 }
@@ -567,7 +823,6 @@ footer p { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; }
   background: none;
   border: none;
   color: var(--text-primary);
-  cursor: pointer;
   padding: 0.5rem;
 }
 
@@ -590,8 +845,7 @@ footer p { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; }
   .section { padding: 3rem 1.5rem; }
   .art-grid { grid-template-columns: 1fr; }
   .content-block { padding: 2.5rem 1.5rem; }
-  .masonry { columns: 1; }
-  .artwork-image-container { width: 200px; height: 260px; }
+  .artwork-canvas { width: 200px; height: 260px; }
   .artwork-frame-outer { padding: 1rem; }
 }
 

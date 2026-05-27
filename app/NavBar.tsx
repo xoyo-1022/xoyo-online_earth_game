@@ -11,7 +11,7 @@ export default function NavBar() {
       if (link.target === '_blank') return
       if (link.href.startsWith('#')) return
       if (link.href.startsWith('mailto')) return
-      if (link.href.startsWith('http')) return
+      if (link.href.startsWith('http') && !link.href.includes('xoyo-1022.github.io')) return
       e.preventDefault()
       const el = document.getElementById('page-transition')
       if (el) {

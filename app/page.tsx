@@ -8,21 +8,41 @@ export default function Home() {
 
       {/* Hero */}
       <section className="hero">
-        {/* Mona Lisa Artwork from Unsplash */}
+        {/* CSS Art: Mona Lisa + MacBook in gilded frame */}
         <div className="artwork-wrapper stagger-children">
           <div className="artwork-frame-outer artwork-float-anim">
             <div className="artwork-frame-inner">
-              <div className="artwork-image-container">
-                {/* Real Mona Lisa painting from Unsplash */}
-                <img
-                  src="/mona-lisa.jpg"
-                  alt="Mona Lisa painting in gold frame"
-                  className="artwork-image"
-                />
+              <div className="artwork-canvas">
+                {/* Background layers */}
+                <div className="art-sky" />
+                <div className="art-hills" />
+                <div className="art-parapet" />
+                <div className="art-arch" />
+
+                {/* Mona Lisa figure */}
+                <div className="art-figure">
+                  <div className="art-hair" />
+                  <div className="art-face">
+                    <div className="art-eyes">
+                      <div className="art-eye" />
+                      <div className="art-eye" />
+                    </div>
+                    <div className="art-smile" />
+                  </div>
+                  <div className="art-body" />
+                  <div className="art-arm-left" />
+                  <div className="art-hand" />
+                  <div className="art-arm-right" />
+                </div>
+
+                {/* MacBook */}
+                <div className="art-macbook" />
+                <div className="art-macbook-base" />
+                <div className="art-glow" />
               </div>
             </div>
           </div>
-          <div className="artwork-label">Leonardo da Vinci × Gallery Remix · xoyo</div>
+          <div className="artwork-label">Mona Lisa × MacBook — CSS Art by xoyo</div>
         </div>
 
         <h1 className="hero-title animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
