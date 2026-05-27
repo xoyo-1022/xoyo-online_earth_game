@@ -1,86 +1,46 @@
-'use client'
+import Link from 'next/link'
+import NavBar from '../NavBar'
 
-const vlogs = [
-  {
-    id: 'v1',
-    title: 'Sample Vlog',
-    desc: '示例视频，替换成你的第一个 Vlog 吧！',
-    youtubeId: '',
-    biliId: '',
-    date: '2024-01-20',
-  },
-]
-
-function VideoEmbed({ vlog }: { vlog: typeof vlogs[0] }) {
-  if (vlog.youtubeId) {
-    return (
-      <iframe
-        src={`https://www.youtube.com/embed/${vlog.youtubeId}`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title={vlog.title}
-        style={{ width: '100%', aspectRatio: '16/9', border: 'none', borderRadius: 'var(--radius)' }}
-      />
-    )
-  }
-  if (vlog.biliId) {
-    return (
-      <iframe
-        src={`https://player.bilibili.com/player.html?bvid=${vlog.biliId}&page=1`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title={vlog.title}
-        style={{ width: '100%', aspectRatio: '16/9', border: 'none', borderRadius: 'var(--radius)' }}
-      />
-    )
-  }
+export default function Vlog() {
   return (
-    <div style={{
-      width: '100%',
-      aspectRatio: '16/9',
-      background: 'linear-gradient(135deg, #f0f0f5 0%, #e8e8ed 100%)',
-      borderRadius: 'var(--radius)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '3rem',
-    }}>
-      ▶️
-    </div>
-  )
-}
-
-export default function VlogPage() {
-  return (
-    <div>
+    <>
+      <NavBar />
       <div className="page-header">
-        <h1>🎥 Vlog</h1>
-        <p>用镜头记录生活，定格每一个值得纪念的瞬间</p>
+        <h1>🎥 Vlog 视频</h1>
+        <p>用镜头捕捉生活的每一帧，从旅行探店到日常 vlog</p>
       </div>
 
-      <div style={{ padding: '0 0 80px' }}>
-        {vlogs.map((vlog) => (
-          <div key={vlog.id} style={{ marginBottom: '60px' }}>
-            <VideoEmbed vlog={vlog} />
-            <div style={{ marginTop: '20px' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '6px' }}>{vlog.title}</h2>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>{vlog.date}</p>
-              <p style={{ color: 'var(--text-secondary)' }}>{vlog.desc}</p>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 2rem 4rem' }}>
+        <div className="vlog-grid">
+          {[
+            { emoji: '🎬', bg: 'linear-gradient(135deg, #1a1a2e, #16213e)', title: '旅行Vlog | 探索未知的小镇', desc: '一次说走就走的旅行，发现意想不到的风景', duration: '12:34' },
+            { emoji: '🌴', bg: 'linear-gradient(135deg, #2d132c, #801336)', title: '探店Vlog | 隐藏在巷子里的咖啡馆', desc: '发现一家超级有氛围的小店，推荐给大家', duration: '08:45' },
+            { emoji: '☕', bg: 'linear-gradient(135deg, #0f3460, #e94560)', title: '日常Vlog | 我的早晨routine', desc: '记录一个平凡又美好的早晨时光', duration: '15:20' },
+            { emoji: '🏔️', bg: 'linear-gradient(135deg, #11998e, #38ef7d)', title: '徒步Vlog | 登山的全过程记录', desc: '用镜头记录挑战自我的过程', duration: '18:55' },
+            { emoji: '🍜', bg: 'linear-gradient(135deg, #fc4a1a, #f7b733)', title: '美食Vlog | 探访当地特色小吃', desc: '跟着我一起品尝地道美食', duration: '10:12' },
+            { emoji: '🎭', bg: 'linear-gradient(135deg, #3a1c71, #d76d77)', title: '城市漫步Vlog | 夜色中的都市', desc: '用脚步丈量城市，用镜头记录夜晚', duration: '22:08' },
+          ].map((v, i) => (
+            <div key={i} className="vlog-card">
+              <div className="vlog-thumb" style={{ background: v.bg }}>{v.emoji}</div>
+              <div className="vlog-play">▶</div>
+              <span style={{ position:'absolute', top:12, right:12, padding:'0.35rem 0.75rem', background:'rgba(0,0,0,0.7)', borderRadius:6, fontSize:'0.8rem' }}>{v.duration}</span>
+              <div className="vlog-info">
+                <h3>{v.title}</h3>
+                <p>{v.desc}</p>
+              </div>
             </div>
-          </div>
-        ))}
-
-        <div style={{
-          border: '1.5px dashed var(--border)',
-          borderRadius: 'var(--radius)',
-          padding: '48px',
-          textAlign: 'center',
-          color: 'var(--text-secondary)',
-        }}>
-          <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>🎬 还没有 Vlog</p>
-          <p style={{ fontSize: '0.9rem' }}>发给我视频链接，我来帮你嵌入</p>
+          ))}
         </div>
       </div>
-    </div>
+
+      <footer>
+        <p>用热爱书写属于自己的故事</p>
+        <p style={{ fontSize: '0.85rem', marginTop: 8 }}>© 2024 xoyo.online · 记录生活</p>
+        <div className="social-links">
+          <a href="https://github.com/xoyo-1022" target="_blank" rel="noopener">🐙</a>
+          <a href="mailto:your@email.com">📧</a>
+        </div>
+      </footer>
+    </>
   )
 }

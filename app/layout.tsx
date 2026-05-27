@@ -1,23 +1,19 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import NavBar from './NavBar'
 
 export const metadata: Metadata = {
   title: 'xoyo的地球副本 | 个人博客 & Vlog',
-  description: 'xoyo的地球主线及支线副本任务记录',
+  description: '记录生活主线任务 & 支线副本通关日志，用热爱书写属于自己的故事',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
       <body>
-        <NavBar />
-        <main className="container">
-          {children}
-        </main>
-        <footer className="footer">
-          <p>© 2024 xoyo.online · 用热爱记录生活 🌟</p>
-        </footer>
+        <div className="aurora-bg">
+          <div className="aurora-layer"></div>
+        </div>
+        {children}
       </body>
     </html>
   )
