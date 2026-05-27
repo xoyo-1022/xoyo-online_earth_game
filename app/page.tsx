@@ -8,17 +8,49 @@ export default function Home() {
 
       {/* Hero */}
       <section className="hero">
-        <div className="hero-frame stagger-children">
-          <div className="artwork-container">
-            <div className="artwork-main">🖼️</div>
-            <div className="artwork-label">Mona Lisa × MacBook — Remix Edition</div>
+        {/* Mona Lisa + MacBook CSS Art */}
+        <div className="artwork-wrapper stagger-children">
+          <div className="artwork-frame-outer artwork-float-anim">
+            <div className="artwork-frame-inner">
+              <div className="mona-lisa-canvas">
+                {/* Background layers */}
+                <div className="landscape-arch" />
+
+                {/* Mona Lisa figure */}
+                <div className="mona-lisa-figure">
+                  {/* Hair */}
+                  <div className="mona-hair" />
+                  {/* Face */}
+                  <div className="mona-face">
+                    {/* Eyes */}
+                    <div className="mona-eyes">
+                      <div className="mona-eye" />
+                      <div className="mona-eye" />
+                    </div>
+                    {/* Smile */}
+                    <div className="mona-smile" />
+                  </div>
+                  {/* Body */}
+                  <div className="mona-body" />
+                  {/* Arms */}
+                  <div className="mona-arm-left" />
+                  <div className="mona-arm-right" />
+                </div>
+
+                {/* MacBook */}
+                <div className="macbook" />
+                <div className="macbook-base" />
+                <div className="macbook-glow" />
+              </div>
+            </div>
           </div>
+          <div className="artwork-label">Mona Lisa × MacBook — Remix by xoyo</div>
         </div>
 
-        <h1 className="hero-title animate-fade-in-up">
+        <h1 className="hero-title animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           xoyo的<span>地球副本</span>
         </h1>
-        <p className="hero-subtitle animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <p className="hero-subtitle animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           用热爱书写属于自己的故事<br />每一次冒险都值得被记录
         </p>
         <div className="hero-buttons animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
@@ -41,7 +73,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Art Gallery: 图文分享 */}
+      {/* 图文分享 */}
       <section className="section">
         <div className="section-header">
           <h2>📸 图文分享</h2>
@@ -49,36 +81,13 @@ export default function Home() {
         </div>
         <div className="art-grid stagger-children">
           {[
-            {
-              emoji: '🏔️',
-              gradient: 'linear-gradient(145deg, #E8D8C8 0%, #D4C4B0 100%)',
-              tag: '图文',
-              title: '山顶日落',
-              desc: '登顶的那一刻，整个世界都在脚下',
-              date: '2024-01-20',
-            },
-            {
-              emoji: '☕',
-              gradient: 'linear-gradient(145deg, #E8D0D8 0%, #D4BCC4 100%)',
-              tag: '图文',
-              title: '晨间咖啡',
-              desc: '一杯咖啡，一本书，一个安静的早晨',
-              date: '2024-01-15',
-            },
-            {
-              emoji: '🌸',
-              gradient: 'linear-gradient(145deg, #F0E4DC 0%, #E4D4C8 100%)',
-              tag: '图文',
-              title: '春日樱花',
-              desc: '短暂的美丽，更值得珍藏',
-              date: '2024-01-10',
-            },
+            { emoji: '🏔️', gradient: 'linear-gradient(145deg, #E8D8C8, #D4C4B0)', tag: '图文', title: '山顶日落', desc: '登顶的那一刻，整个世界都在脚下', date: '2024-01-20' },
+            { emoji: '☕', gradient: 'linear-gradient(145deg, #E8D0D8, #D4BCC4)', tag: '图文', title: '晨间咖啡', desc: '一杯咖啡，一本书，一个安静的早晨', date: '2024-01-15' },
+            { emoji: '🌸', gradient: 'linear-gradient(145deg, #F0E4DC, #E4D4C8)', tag: '图文', title: '春日樱花', desc: '短暂的美丽，更值得珍藏', date: '2024-01-10' },
           ].map((item, i) => (
             <Link key={i} href="/moments" className="art-card">
               <div className="art-card-frame">
-                <div className="art-card-bg" style={{ background: item.gradient }}>
-                  {item.emoji}
-                </div>
+                <div className="art-card-bg" style={{ background: item.gradient }}>{item.emoji}</div>
                 <div className="art-card-overlay" />
               </div>
               <div className="art-card-info">
@@ -91,26 +100,18 @@ export default function Home() {
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-          <Link href="/moments" className="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-              <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
-            查看全部图文 →
-          </Link>
+          <Link href="/moments" className="btn btn-secondary">查看全部图文 →</Link>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="divider">
-        <span className="divider-icon">✦</span>
-      </div>
+      <div className="divider"><span className="divider-icon">✦</span></div>
 
-      {/* Vlog Section */}
+      {/* Vlog */}
       <section className="section">
         <div className="section-header">
           <h2>🎥 Vlog 视频</h2>
-          <p>用镜头捕捉生活的每一帧，从旅行探店到日常 vlog</p>
+          <p>用镜头捕捉生活的每一帧</p>
         </div>
         <div className="vlog-grid stagger-children">
           {[
@@ -133,33 +134,25 @@ export default function Home() {
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-          <Link href="/vlog" className="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-              <polygon points="23 7 16 12 23 17 23 7" />
-              <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-            </svg>
-            探索 Vlog →
-          </Link>
+          <Link href="/vlog" className="btn btn-secondary">探索 Vlog →</Link>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="divider">
-        <span className="divider-icon">✦</span>
-      </div>
+      <div className="divider"><span className="divider-icon">✦</span></div>
 
-      {/* Blog Section */}
+      {/* Blog */}
       <section className="section">
         <div className="section-header">
           <h2>📝 博客写作</h2>
-          <p>文字是我思考的方式，旅行记录、技术心得、生活感悟</p>
+          <p>文字是我思考的方式</p>
         </div>
         <div className="blog-list stagger-children">
           {[
-            { icon: '📝', tag: '随笔', title: '第一篇博客：开始记录', date: '2024-01-20', desc: '欢迎来到我的博客！这是第一篇文章，以后会分享更多有趣的内容。' },
-            { icon: '✈️', tag: '旅行', title: '旅行日记：某地探秘', date: '2024-01-15', desc: '记录一次难忘的旅行经历，探索未知的风景。' },
+            { icon: '📝', tag: '随笔', title: '第一篇博客：开始记录', date: '2024-01-20', desc: '欢迎来到我的博客！这是第一篇文章，以后会分享更多有趣的内容。', slug: 'first-post' },
+            { icon: '✈️', tag: '旅行', title: '旅行日记：某地探秘', date: '2024-01-15', desc: '记录一次难忘的旅行经历，探索未知的风景。', slug: 'travel-note' },
           ].map((b, i) => (
-            <Link key={i} href={`/blog/${i === 0 ? 'first-post' : 'travel-note'}`} className="blog-card">
+            <Link key={i} href={`/blog/${b.slug}`} className="blog-card">
               <div className="blog-icon">{b.icon}</div>
               <div className="blog-content">
                 <h3>{b.title}</h3>
@@ -173,23 +166,15 @@ export default function Home() {
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-          <Link href="/blog" className="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-            </svg>
-            阅读更多 →
-          </Link>
+          <Link href="/blog" className="btn btn-secondary">阅读更多 →</Link>
         </div>
       </section>
 
-      {/* Decorative Art Quote */}
+      {/* Art Quote */}
       <section className="section" style={{ textAlign: 'center', paddingTop: '2rem' }}>
         <div className="content-block" style={{ background: 'var(--gradient-lavender)' }}>
           <h2>「 Art is the lie that enables us to realize the truth. 」</h2>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1rem', color: 'var(--text-secondary)' }}>
-            — Pablo Picasso
-          </p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1rem', color: 'var(--text-secondary)' }}>— Pablo Picasso</p>
         </div>
       </section>
 
