@@ -8,43 +8,21 @@ export default function Home() {
 
       {/* Hero */}
       <section className="hero">
-        {/* Mona Lisa + MacBook CSS Art */}
+        {/* Mona Lisa Artwork from Unsplash */}
         <div className="artwork-wrapper stagger-children">
           <div className="artwork-frame-outer artwork-float-anim">
             <div className="artwork-frame-inner">
-              <div className="mona-lisa-canvas">
-                {/* Background layers */}
-                <div className="landscape-arch" />
-
-                {/* Mona Lisa figure */}
-                <div className="mona-lisa-figure">
-                  {/* Hair */}
-                  <div className="mona-hair" />
-                  {/* Face */}
-                  <div className="mona-face">
-                    {/* Eyes */}
-                    <div className="mona-eyes">
-                      <div className="mona-eye" />
-                      <div className="mona-eye" />
-                    </div>
-                    {/* Smile */}
-                    <div className="mona-smile" />
-                  </div>
-                  {/* Body */}
-                  <div className="mona-body" />
-                  {/* Arms */}
-                  <div className="mona-arm-left" />
-                  <div className="mona-arm-right" />
-                </div>
-
-                {/* MacBook */}
-                <div className="macbook" />
-                <div className="macbook-base" />
-                <div className="macbook-glow" />
+              <div className="artwork-image-container">
+                {/* Real Mona Lisa painting from Unsplash */}
+                <img
+                  src="/mona-lisa.jpg"
+                  alt="Mona Lisa painting in gold frame"
+                  className="artwork-image"
+                />
               </div>
             </div>
           </div>
-          <div className="artwork-label">Mona Lisa × MacBook — Remix by xoyo</div>
+          <div className="artwork-label">Leonardo da Vinci × Gallery Remix · xoyo</div>
         </div>
 
         <h1 className="hero-title animate-fade-in-up" style={{ animationDelay: '0.1s' }}>

@@ -45,39 +45,6 @@
 /* ---------- Custom Cursor ---------- */
 * { cursor: var(--cursor-custom); }
 a, button, [role="button"], input, textarea, select { cursor: var(--cursor-custom); }
-.clickable { cursor: pointer; }
-
-/* Custom cursor trail dot */
-.cursor-dot {
-  position: fixed;
-  width: 8px; height: 8px;
-  background: var(--accent-gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, opacity 0.3s ease;
-  mix-blend-mode: multiply;
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid var(--accent-gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: all 0.18s ease;
-  opacity: 0.7;
-}
-
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring {
-  width: 52px; height: 52px;
-  border-color: var(--accent-rose);
-  opacity: 1;
-}
 
 /* ---------- Reset & Base ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,13 +58,22 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- Page Transition ---------- */
+/* ---------- PPT Smooth Zoom Page Transition ---------- */
 .page-transition {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: 9999;
   pointer-events: none;
+  overflow: hidden;
+}
+
+.page-transition .wipe-circle {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
   background: linear-gradient(
     135deg,
     #F2E0D0 0%,
@@ -106,18 +82,27 @@ body {
     #C4878E 75%,
     #B8A8C9 100%
   );
-  transform: scaleY(0);
-  transform-origin: bottom center;
-  transition: transform 0.52s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: none;
 }
 
-.page-transition.active {
-  transform: scaleY(1);
+.page-transition.active .wipe-circle {
+  width: 400vh;
+  height: 400vh;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.page-transition.exit {
-  transform-origin: top center;
-  transform: scaleY(0);
+.page-transition.exit .wipe-circle {
+  top: 50%; left: 50%;
+  width: 400vh; height: 400vh;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              height 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              top 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              left 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              opacity 0.3s ease 0.15s;
+  opacity: 0;
 }
 
 /* ---------- Aurora Light Background ---------- */
@@ -230,7 +215,7 @@ nav {
   position: relative;
 }
 
-/* ---------- Mona Lisa Artwork Container ---------- */
+/* ---------- Artwork Container with Mona Lisa ---------- */
 .artwork-wrapper {
   position: relative;
   margin-bottom: 3rem;
@@ -239,7 +224,6 @@ nav {
   align-items: center;
 }
 
-/* Outer decorative frame */
 .artwork-frame-outer {
   position: relative;
   padding: 1.5rem;
@@ -251,7 +235,6 @@ nav {
     inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
-/* Gold inner frame lines */
 .artwork-frame-inner {
   position: relative;
   padding: 1rem;
@@ -265,190 +248,42 @@ nav {
   border: 1px solid rgba(201, 149, 106, 0.25);
 }
 
-/* The Mona Lisa + MacBook Canvas */
-.mona-lisa-canvas {
+.artwork-image-container {
   position: relative;
   width: 260px;
   height: 340px;
-  background: linear-gradient(160deg, #F0E0D0 0%, #E4D0C0 40%, #D4C0A8 100%);
   overflow: hidden;
   border-radius: 2px;
 }
 
-/* Background landscape */
-.mona-lisa-canvas::before {
+.artwork-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Subtle overlay for vintage feel */
+.artwork-image-container::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 55%;
+  inset: 0;
   background:
-    linear-gradient(to top, #8BA888 0%, #9CAF88 30%, #B8C8A8 100%);
+    linear-gradient(to bottom, rgba(240,225,210,0.15) 0%, transparent 30%),
+    linear-gradient(to top, rgba(200,180,150,0.1) 0%, transparent 20%);
+  pointer-events: none;
 }
 
-/* Background sky with sfumato effect */
-.mona-lisa-canvas::after {
-  content: '';
+/* Gold illuminated frame corners */
+.artwork-frame-corner {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 50%;
-  background: linear-gradient(to bottom, #C8B8A0 0%, #D8C8B0 60%, #E0D0C0 100%);
+  width: 20px; height: 20px;
+  border-color: var(--accent-gold);
+  border-style: solid;
+  opacity: 0.6;
 }
 
-/* Left arch / landscape opening */
-.landscape-arch {
-  position: absolute;
-  bottom: 55%; left: 0; right: 0;
-  height: 45%;
-  background:
-    radial-gradient(ellipse at 50% 100%, #9CAF88 0%, transparent 70%),
-    linear-gradient(to top, #8BA888 0%, #B8C8A8 100%);
-  clip-path: polygon(0 100%, 15% 40%, 30% 55%, 45% 35%, 60% 50%, 75% 30%, 85% 45%, 100% 100%);
-}
-
-/* Mona Lisa figure - CSS art */
-.mona-lisa-figure {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 130px;
-  height: 180px;
-  z-index: 2;
-}
-
-/* Her face/head */
-.mona-face {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 60px; height: 72px;
-  background: linear-gradient(145deg, #E8D0B8, #D4C0A8);
-  border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
-  box-shadow: inset -4px -4px 12px rgba(0,0,0,0.08);
-}
-
-/* Her hair */
-.mona-hair {
-  position: absolute;
-  top: -4px; left: -8px; right: -8px;
-  height: 40px;
-  background: linear-gradient(180deg, #4A3020 0%, #6B4A30 100%);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
-
-/* Her body / dress */
-.mona-body {
-  position: absolute;
-  top: 68px; left: 50%;
-  transform: translateX(-50%);
-  width: 90px; height: 112px;
-  background: linear-gradient(180deg, #8B6B40 0%, #7A5A30 50%, #6A4A20 100%);
-  border-radius: 40% 40% 30% 30% / 60% 60% 40% 40%;
-}
-
-/* Her right arm (resting on MacBook) */
-.mona-arm-right {
-  position: absolute;
-  bottom: 12%;
-  right: 12%;
-  width: 50px; height: 18px;
-  background: linear-gradient(90deg, #8B6B40, #7A5A30);
-  border-radius: 10px;
-  transform: rotate(-15deg);
-  z-index: 3;
-}
-
-/* Her left arm (classic pose) */
-.mona-arm-left {
-  position: absolute;
-  top: 70px; left: 5px;
-  width: 18px; height: 65px;
-  background: linear-gradient(180deg, #8B6B40, #7A5A30);
-  border-radius: 10px;
-  transform: rotate(15deg);
-}
-
-/* Her enigmatic smile */
-.mona-smile {
-  position: absolute;
-  top: 38px; left: 50%;
-  transform: translateX(-50%);
-  width: 30px; height: 12px;
-  border: none;
-  border-bottom: 2px solid rgba(100, 60, 30, 0.4);
-  border-radius: 0 0 50% 50%;
-}
-
-/* Her eyes */
-.mona-eyes {
-  position: absolute;
-  top: 28px; left: 50%;
-  transform: translateX(-50%);
-  width: 40px; height: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.mona-eye {
-  width: 10px; height: 6px;
-  background: rgba(60, 40, 20, 0.6);
-  border-radius: 50%;
-}
-
-/* MacBook */
-.macbook {
-  position: absolute;
-  bottom: 8%;
-  right: 8%;
-  width: 70px;
-  height: 45px;
-  background: linear-gradient(180deg, #D0D0D0, #B0B0B0);
-  border-radius: 4px 4px 0 0;
-  z-index: 4;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.macbook::before {
-  content: '';
-  position: absolute;
-  top: 4px; left: 4px; right: 4px; bottom: 4px;
-  background: linear-gradient(180deg, #1a1a2e, #16213e);
-  border-radius: 2px;
-}
-
-/* MacBook glow on screen */
-.macbook::after {
-  content: '';
-  position: absolute;
-  top: 4px; left: 4px; right: 4px; bottom: 4px;
-  background: linear-gradient(135deg, #4A90D9, #8FAFC9);
-  border-radius: 2px;
-  opacity: 0.3;
-}
-
-/* MacBook base/keyboard */
-.macbook-base {
-  position: absolute;
-  bottom: 5%;
-  right: 6%;
-  width: 74px;
-  height: 6px;
-  background: linear-gradient(180deg, #B0B0B0, #909090);
-  border-radius: 0 0 4px 4px;
-  z-index: 4;
-}
-
-/* Golden light rays from MacBook */
-.macbook-glow {
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  width: 100px; height: 80px;
-  background: radial-gradient(ellipse at center bottom, rgba(201, 149, 106, 0.25) 0%, transparent 70%);
-  z-index: 1;
-}
-
-/* Frame label */
 .artwork-label {
   position: absolute;
   bottom: -30px; left: 50%;
@@ -465,7 +300,6 @@ nav {
   letter-spacing: 0.03em;
 }
 
-/* Float animation for artwork */
 .artwork-float-anim {
   animation: artworkFloat 7s ease-in-out infinite;
 }
@@ -597,7 +431,6 @@ nav {
   background: linear-gradient(145deg, #F0E6DC, #E4D8CC);
 }
 
-/* Art card inner frame */
 .art-card-frame::before {
   content: '';
   position: absolute;
@@ -757,7 +590,8 @@ footer p { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; }
   .section { padding: 3rem 1.5rem; }
   .art-grid { grid-template-columns: 1fr; }
   .content-block { padding: 2.5rem 1.5rem; }
-  .mona-lisa-canvas { width: 200px; height: 260px; }
+  .masonry { columns: 1; }
+  .artwork-image-container { width: 200px; height: 260px; }
   .artwork-frame-outer { padding: 1rem; }
 }
 

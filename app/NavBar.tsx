@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 export default function NavBar() {
   useEffect(() => {
-    // Page transition: intercept all link clicks
     const handleClick = (e: MouseEvent) => {
       const link = (e.target as Element).closest('a[href]') as HTMLAnchorElement | null
       if (!link) return
@@ -17,7 +16,7 @@ export default function NavBar() {
       const el = document.getElementById('page-transition')
       if (el) {
         el.classList.add('active')
-        setTimeout(() => { window.location.href = link.href }, 480)
+        setTimeout(() => { window.location.href = link.href }, 520)
       } else {
         window.location.href = link.href
       }

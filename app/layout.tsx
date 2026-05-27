@@ -15,7 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <div id="page-transition" className="page-transition" />
+        {/* PPT Smooth Zoom Transition - circular wipe from center */}
+        <div id="page-transition" className="page-transition">
+          <div className="wipe-circle" />
+        </div>
         <div className="aurora-bg" />
         {children}
       </body>
