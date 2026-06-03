@@ -67,6 +67,27 @@ export default function RouteTransition({ children }: { children: ReactNode }) {
     }
   }, [router])
 
+  useEffect(() => {
+    const revealItems = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
+    if (!revealItems.length) return
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('reveal-pending')
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.16 })
+
+    revealItems.forEach((item) => {
+      item.classList.add('reveal-pending')
+      observer.observe(item)
+    })
+    return () => observer.disconnect()
+  }, [pathname])
+
   return (
     <div className={`route-stage${isEntering ? ' route-stage-enter' : ''}`}>
       {children}
