@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { href: '/moments', label: '图文', icon: '📸' },
-  { href: '/vlog', label: 'Vlog', icon: '🎥' },
-  { href: '/blog', label: '博客', icon: '📝' },
+  { href: '/moments', label: 'Moments' },
+  { href: '/vlog', label: 'Vlog' },
+  { href: '/blog', label: 'Blog' },
 ]
 
 export default function NavBar() {
@@ -32,7 +32,6 @@ export default function NavBar() {
           return (
             <li key={item.href}>
               <Link href={item.href} className={isActive ? 'active' : undefined}>
-                <span className="nav-link-icon">{item.icon}</span>
                 {item.label}
               </Link>
             </li>
