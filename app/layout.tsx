@@ -1,5 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import RouteTransition from './RouteTransition'
 
 export const metadata: Metadata = {
   title: 'xoyo的地球副本 | Art & Life',
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="dynamic-bg">
           <div className="bg-layer-3" />
         </div>
-        {children}
+        <RouteTransition>{children}</RouteTransition>
       </body>
     </html>
   )
