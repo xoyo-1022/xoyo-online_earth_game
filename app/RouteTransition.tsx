@@ -88,6 +88,45 @@ export default function RouteTransition({ children }: { children: ReactNode }) {
     return () => observer.disconnect()
   }, [pathname])
 
+  useEffect(() => {
+    const motionItems = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-motion]'))
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!motionItems.length || reducedMotion.matches) return
+
+    let frame = 0
+    const updateMotion = () => {
+      frame = 0
+      const viewportHeight = window.innerHeight
+      const scrollRange = document.documentElement.scrollHeight - viewportHeight
+      const pageProgress = scrollRange > 0 ? window.scrollY / scrollRange : 0
+      document.documentElement.style.setProperty('--page-progress', pageProgress.toFixed(4))
+
+      motionItems.forEach((item) => {
+        const rect = item.getBoundingClientRect()
+        const centerOffset = (rect.top + rect.height / 2 - viewportHeight / 2) / viewportHeight
+        const speed = Number(item.dataset.scrollSpeed ?? '1')
+        const shift = Math.max(-1.25, Math.min(1.25, centerOffset)) * speed
+        item.style.setProperty('--scroll-shift', shift.toFixed(4))
+      })
+    }
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateMotion)
+    }
+
+    updateMotion()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      document.documentElement.style.removeProperty('--page-progress')
+      motionItems.forEach((item) => item.style.removeProperty('--scroll-shift'))
+    }
+  }, [pathname])
+
   return (
     <div className={`route-stage${isEntering ? ' route-stage-enter' : ''}`}>
       {children}
