@@ -34,6 +34,24 @@ const updates = [
   ['Vlog', '海岸线上的风', '一段没有旁白的海边散步。', '2024.04.06'],
 ]
 
+const storySteps = [
+  {
+    number: '01',
+    title: 'Vlog 让时间继续流动',
+    body: '影像不是为了复刻完整的一天，而是留下风声、停顿、走路的节奏，以及当时没有说出口的心情。',
+  },
+  {
+    number: '02',
+    title: 'Blog 让想法慢慢成形',
+    body: '文字像页边注，把生活里还没想明白的东西先安放下来，等未来某一天重新读懂。',
+  },
+  {
+    number: '03',
+    title: 'Moments 收藏细小的光',
+    body: '照片和短句不需要变成大故事。它们只需要证明，那一瞬间确实被认真看见过。',
+  },
+]
+
 function Arrow() {
   return (
     <svg viewBox="0 0 32 16" aria-hidden="true">
@@ -49,6 +67,7 @@ export default function Home() {
 
       <main className="editorial-home">
         <section className="editorial-hero">
+          <span className="hero-background-word" aria-hidden="true">Archive</span>
           <div className="editorial-hero-copy hero-reveal-copy">
             <h1><em>xoyo</em> 的地球副本</h1>
             <p>记录生活主线任务，也收藏支线里的微光。</p>
@@ -84,6 +103,24 @@ export default function Home() {
           ))}
         </section>
 
+        <section className="sticky-story" aria-label="滚动叙事">
+          <div className="sticky-story-backdrop" data-scroll-motion data-scroll-speed="0.075">
+            <span className="sticky-giant-text">Vlog Blog Moments</span>
+            <img src="/xoyo-online_earth_game/lab-hero-desk.png" alt="" data-parallax-image />
+          </div>
+          <div className="sticky-story-steps">
+            {storySteps.map((step) => (
+              <div className="sticky-story-panel" key={step.number}>
+                <article className="sticky-story-card" data-reveal>
+                  <span>{step.number}</span>
+                  <h2>{step.title}</h2>
+                  <p>{step.body}</p>
+                </article>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="featured-story">
           <div className="featured-story-image" data-reveal data-scroll-motion data-scroll-speed="0.08">
             <img src="/xoyo-online_earth_game/lab-hero-desk.png" alt="旅行影像与手写笔记" data-parallax-image />
@@ -97,6 +134,17 @@ export default function Home() {
               观看最新影像 <Arrow />
             </Link>
           </div>
+        </section>
+
+        <section className="fluid-transition" data-reveal data-scroll-motion data-scroll-speed="0.05" aria-label="流动转场">
+          <div className="fluid-grid" aria-hidden="true" />
+          <div className="fluid-ribbon" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <p>Motion archive</p>
+          <h2>让生活像一条缓慢流动的胶片。</h2>
         </section>
 
         <section className="mixed-feature">

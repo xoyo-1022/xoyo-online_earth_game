@@ -27,3 +27,9 @@ test('homepage includes the scroll storytelling hooks', () => {
   assert.match(homepage, /data-parallax-image/)
   assert.match(homepage, /data-reveal/)
 })
+
+test('homepage includes structured-style narrative sections', () => {
+  for (const marker of ['sticky-story', 'fluid-transition', 'Vlog 让时间继续流动', 'Motion archive']) {
+    assert.ok(homepage.includes(marker), `missing narrative marker: ${marker}`)
+  }
+})
